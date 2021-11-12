@@ -62,23 +62,31 @@
                   py-3
                   px-4
                   transition
-                  hover:text-white
-                  text-white
-                  bg-blue-600
+
                 "
                 href="#"
-                >Login</a
+                @click.prevent="tab = 'login'"
+                :class="{'hover:text-white text-white bg-blue-600': tab === 'login',
+                'hover:text-blue-600': tab === 'register'
+                }"
+                >
+                Login
+                </a
               >
             </li>
             <li class="flex-auto text-center">
               <a class="block rounded py-3 px-4 transition" href="#"
+              @click.prevent="tab = 'register'"
+              :class="{'hover:text-white text-white bg-blue-600': tab === 'register',
+                'hover:text-blue-600': tab === 'login'
+                }"
                 >Register</a
               >
             </li>
           </ul>
 
           <!-- Login Form -->
-          <form>
+          <form v-show="tab === 'login'">
             <!-- Email -->
             <div class="mb-3">
               <label class="inline-block mb-2">Email</label>
@@ -137,7 +145,7 @@
             </button>
           </form>
           <!-- Registration Form -->
-          <form>
+          <form v-show="tab === 'register'">
             <!-- Name -->
             <div class="mb-3">
               <label class="inline-block mb-2">Name</label>
@@ -295,6 +303,11 @@ import { mapMutations, mapState } from 'vuex';
 
 export default {
   name: 'Auth',
+  data() {
+    return {
+      tab: 'login',
+    };
+  },
   computed: {
     /* ...mapState({
       modal: 'authModalShow',
