@@ -291,14 +291,12 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 
 export default {
   name: 'Auth',
   computed: {
-    authModalShow() {
-      return this.$store.getters.authModalShow;
-    },
+    ...mapGetters(['authModalShow']),
   },
   methods: {
     ...mapMutations(['toggleAuthModal']),
