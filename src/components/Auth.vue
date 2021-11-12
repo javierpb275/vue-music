@@ -3,7 +3,7 @@
   <div
     class="fixed z-10 inset-0 overflow-y-auto"
     id="modal"
-    :class="{ hidden: !authModalShow }"
+    :class="{ hidden: !modal }"
   >
     <div
       class="
@@ -296,7 +296,10 @@ import { mapMutations, mapState } from 'vuex';
 export default {
   name: 'Auth',
   computed: {
-    ...mapState(['authModalShow']),
+    ...mapState({
+      modal: 'authModalShow',
+    }),
+    // ...mapState(['authModalShow']),
   },
   methods: {
     ...mapMutations(['toggleAuthModal']),
