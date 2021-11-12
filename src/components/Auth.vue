@@ -151,6 +151,7 @@
               <label class="inline-block mb-2">Name</label>
               <input
                 type="text"
+                name="name"
                 class="
                   block
                   w-full
@@ -300,6 +301,7 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex';
+// import { Form as VeeForm, Field as VeeField } from 'vee-validate';
 
 export default {
   name: 'Auth',
@@ -307,6 +309,10 @@ export default {
     return {
       tab: 'login',
     };
+  },
+  components: {
+    /*     VeeForm,
+    VeeField, */
   },
   computed: {
     /* ...mapState({
