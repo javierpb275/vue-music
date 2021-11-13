@@ -47,7 +47,10 @@
           <div class="flex justify-between items-center pb-4">
             <p class="text-2xl font-bold">Your Account</p>
             <!-- Modal Close Button -->
-            <div class="modal-close cursor-pointer z-50" @click.prevent="toggleAuthModal">
+            <div
+              class="modal-close cursor-pointer z-50"
+              @click.prevent="toggleAuthModal"
+            >
               <i class="fas fa-times"></i>
             </div>
           </div>
@@ -56,29 +59,25 @@
           <ul class="flex flex-wrap mb-4">
             <li class="flex-auto text-center">
               <a
-                class="
-                  block
-                  rounded
-                  py-3
-                  px-4
-                  transition
-
-                "
+                class="block rounded py-3 px-4 transition"
                 href="#"
                 @click.prevent="tab = 'login'"
-                :class="{'hover:text-white text-white bg-blue-600': tab === 'login',
-                'hover:text-blue-600': tab === 'register'
+                :class="{
+                  'hover:text-white text-white bg-blue-600': tab === 'login',
+                  'hover:text-blue-600': tab === 'register',
                 }"
-                >
-                Login
-                </a
               >
+                Login
+              </a>
             </li>
             <li class="flex-auto text-center">
-              <a class="block rounded py-3 px-4 transition" href="#"
-              @click.prevent="tab = 'register'"
-              :class="{'hover:text-white text-white bg-blue-600': tab === 'register',
-                'hover:text-blue-600': tab === 'login'
+              <a
+                class="block rounded py-3 px-4 transition"
+                href="#"
+                @click.prevent="tab = 'register'"
+                :class="{
+                  'hover:text-white text-white bg-blue-600': tab === 'register',
+                  'hover:text-blue-600': tab === 'login',
                 }"
                 >Register</a
               >
@@ -300,14 +299,14 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex';
+import { mapMutations, mapState } from "vuex";
 // import { Form as VeeForm, Field as VeeField } from 'vee-validate';
 
 export default {
-  name: 'Auth',
+  name: "Auth",
   data() {
     return {
-      tab: 'login',
+      tab: "login",
     };
   },
   components: {
@@ -318,10 +317,10 @@ export default {
     /* ...mapState({
       modal: 'authModalShow',
     }), */
-    ...mapState(['authModalShow']),
+    ...mapState(["authModalShow"]),
   },
   methods: {
-    ...mapMutations(['toggleAuthModal']),
+    ...mapMutations(["toggleAuthModal"]),
   },
 };
 </script>

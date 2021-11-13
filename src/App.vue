@@ -478,16 +478,16 @@
       </div>
     </div>
 
-  <auth-modal/>
+    <auth-modal />
   </div>
 </template>
 
 <script>
-import AppHeader from './components/Header.vue';
-import AuthModal from './components/Auth.vue';
+import AppHeader from "./components/Header.vue";
+import AuthModal from "./components/Auth.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     AppHeader,
     AuthModal,
