@@ -213,8 +213,9 @@
             <!-- Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
-              <input
+              <vee-field
                 type="password"
+                name="password"
                 class="
                   block
                   w-full
@@ -229,12 +230,14 @@
                 "
                 placeholder="Password"
               />
+              <ErrorMessage class="text-red-600" name="password"/>
             </div>
             <!-- Confirm Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Confirm Password</label>
-              <input
+              <vee-field
                 type="password"
+                name="confirm_password"
                 class="
                   block
                   w-full
@@ -249,6 +252,7 @@
                 "
                 placeholder="Confirm Password"
               />
+              <ErrorMessage class="text-red-600" name="confirm_password"/>
             </div>
             <!-- Country -->
             <div class="mb-3">
@@ -315,8 +319,8 @@ export default {
         name: "required|min:3|max:100|alpha_spaces",
         email: "required|min:3|max:100|email",
         age: "required|min_value:18|max_value:100",
-        password: "",
-        confirm_password: "",
+        password: "required|min:3|max:100",
+        confirm_password: "confirmed:@password",
         country: "",
         tos: "",
       },
