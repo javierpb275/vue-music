@@ -214,9 +214,8 @@
             <!-- Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
-              <vee-field
-                type="password"
-                name="password"
+              <vee-field name="password" :bails="false" v-slot="{field, errors}">
+                <input type="password" placeholder="Password" v-bind="field"
                 class="
                   block
                   w-full
@@ -229,8 +228,11 @@
                   focus:outline-none focus:border-black
                   rounded
                 "
-                placeholder="Password"
-              />
+                />
+                <div class="text-red-600" v-for="error in errors" :key="error">
+                  {{error}}
+                  </div>
+                </vee-field>
               <ErrorMessage class="text-red-600" name="password"/>
             </div>
             <!-- Confirm Password -->
