@@ -1,8 +1,7 @@
 <template>
   <div>
-    <!-- Registration Form -->
     <div
-      class="text-white text-center font-bold p-5 mb-4"
+      class="text-white text-center font-bold p-4 mb-4"
       v-if="reg_show_alert"
       :class="reg_alert_variant"
     >
@@ -83,9 +82,6 @@
         <label class="inline-block mb-2">Password</label>
         <vee-field name="password" :bails="false" v-slot="{ field, errors }">
           <input
-            type="password"
-            placeholder="Password"
-            v-bind="field"
             class="
               block
               w-full
@@ -98,12 +94,14 @@
               focus:outline-none focus:border-black
               rounded
             "
+            type="password"
+            placeholder="Password"
+            v-bind="field"
           />
           <div class="text-red-600" v-for="error in errors" :key="error">
             {{ error }}
           </div>
         </vee-field>
-        <ErrorMessage class="text-red-600" name="password" />
       </div>
       <!-- Confirm Password -->
       <div class="mb-3">
@@ -159,11 +157,11 @@
           type="checkbox"
           name="tos"
           value="1"
-          class="w-4 h-4 float-left -ml-6 mt-1 rounded"
+          class="w-4 h-4 float-left -ml-6 mt-1 rounded inline-block"
         />
         <label class="inline-block">Accept terms of service</label>
+        <ErrorMessage class="text-red-600 block" name="tos" />
       </div>
-      <ErrorMessage class="text-red-600" name="tos" />
       <button
         type="submit"
         :disabled="reg_in_submission"
@@ -186,8 +184,6 @@
 </template>
 
 <script>
-import firebase from "@/plugins/firebase";
-
 export default {
   name: "RegisterForm",
   data() {
@@ -207,32 +203,29 @@ export default {
       reg_in_submission: false,
       reg_show_alert: false,
       reg_alert_variant: "bg-blue-500",
-      reg_alert_msg: "Please wait! Your account is being created",
+      reg_alert_msg: "Please wait! Your account is being created.",
     };
   },
   methods: {
     async register(values) {
-      this.reg_in_submission = true;
       this.reg_show_alert = true;
-      this.reg_alert_variant = "bg-blue-500.";
+      this.reg_in_submission = true;
+      this.reg_alert_variant = "bg-blue-500";
       this.reg_alert_msg = "Please wait! Your account is being created.";
-      
+
       try {
-        let userCred = await firebase
-          .auth()
-          .createUserWithEmailAndPassword(values.email, values.password);
-        console.log(userCred)
+        await this.$store.dispatch("register", values);
       } catch (error) {
         this.reg_in_submission = false;
         this.reg_alert_variant = "bg-red-500";
         this.reg_alert_msg =
-          "An unexpected error occurred. Please try again later.";
+          "An unexpected error occured. Please try again later.";
         return;
       }
 
       this.reg_alert_variant = "bg-green-500";
       this.reg_alert_msg = "Success! Your account has been created.";
-
+      window.location.reload();
     },
   },
 };

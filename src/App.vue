@@ -1,6 +1,7 @@
 <template>
   <div>
     <app-header />
+
     <!-- Introduction -->
     <section class="mb-8 py-20 text-white text-center relative">
       <div
@@ -32,9 +33,8 @@
       >
         <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
           <span class="card-title">Songs</span>
-          <!-- Icon -->
           <i
-            class="fa fa-headphones-alt float-right text-green-400 text-xl"
+            class="fa fa-headphones-alt float-right text-green-400 text-2xl"
           ></i>
         </div>
         <!-- Playlist -->
@@ -423,7 +423,6 @@
             <span class="song-title">Song Title</span> by
             <span class="song-artist">Artist</span>
           </div>
-          <!-- Scrub Container  -->
           <span
             class="
               block
@@ -437,14 +436,12 @@
               cursor-pointer
             "
           >
-            <!-- Player Ball -->
             <span
               class="absolute top-neg-8 text-gray-800 text-lg"
               style="left: 50%"
             >
               <i class="fas fa-circle"></i>
             </span>
-            <!-- Player Progress Bar-->
             <span
               class="
                 block
@@ -491,6 +488,9 @@ export default {
   components: {
     AppHeader,
     AuthModal,
+  },
+  created() {
+    this.$store.dispatch("init_login");
   },
 };
 </script>
