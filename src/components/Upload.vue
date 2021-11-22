@@ -30,7 +30,7 @@
         @dragover.prevent.stop="is_dragover = true"
         @dragenter.prevent.stop="is_dragover = true"
         @dragleave.prevent.stop="is_dragover = false"
-        @drop.prevent.stop="upload"
+        @drop.prevent.stop="upload($event)"
       >
         <h5>Drop your files here</h5>
       </div>
@@ -70,6 +70,8 @@
 </template>
 
 <script>
+import { storage } from "../plugins/firebase";
+
 export default {
   name: "Upload",
   data() {
@@ -78,8 +80,17 @@ export default {
     };
   },
   methods: {
-    upload() {
+    upload($event) {
       this.is_dragover = false;
+      const files = [...$event.dataTransfer.files];
+      files.forEach((file) => {
+        if (file.type !== "audio/mpeg") {
+          return;
+        }
+        const storageRef = storage.ref();
+        const songsRef = storageRef.child(`songs/${file.name}`);
+        songsRef.put(file);
+      });
     },
   },
 };
