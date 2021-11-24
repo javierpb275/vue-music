@@ -1,7 +1,7 @@
 <template>
   <div class="border border-gray-200 p-3 mb-4 rounded">
-    <div>
-      <h4 class="inline-block text-2xl font-bold">Song Name</h4>
+    <div v-show="!showForm">
+      <h4 class="inline-block text-2xl font-bold">{{ song.modified_name }}</h4>
       <button
         class="ml-1 py-1 px-2 text-sm rounded text-white bg-red-600 float-right"
       >
@@ -18,16 +18,22 @@
           bg-blue-600
           float-right
         "
+        @click.prevent="showForm = !showForm"
       >
         <i class="fa fa-pencil-alt"></i>
       </button>
     </div>
-    <div>
-      <form>
+    <div v-show="showForm">
+      <vee-form
+        :validation-schema="schema"
+        :initial-values="song"
+        @submit="edit"
+      >
         <div class="mb-3">
           <label class="inline-block mb-2">Song Title</label>
-          <input
+          <vee-field
             type="text"
+            name="modified_name"
             class="
               block
               w-full
@@ -42,11 +48,13 @@
             "
             placeholder="Enter Song Title"
           />
+          <ErrorMessage class="text-red-600" name="modified_name" />
         </div>
         <div class="mb-3">
           <label class="inline-block mb-2">Genre</label>
-          <input
+          <vee-field
             type="text"
+            name="genre"
             class="
               block
               w-full
@@ -61,6 +69,7 @@
             "
             placeholder="Enter Genre"
           />
+          <ErrorMessage class="text-red-600" name="genre" />
         </div>
         <button
           type="submit"
@@ -74,7 +83,7 @@
         >
           Go Back
         </button>
-      </form>
+      </vee-form>
     </div>
   </div>
 </template>
@@ -86,6 +95,20 @@ export default {
     song: {
       type: Object,
       required: true,
+    },
+  },
+  data() {
+    return {
+      showForm: false,
+      schema: {
+        modified_name: "required",
+        genre: "alpha_spaces",
+      },
+    };
+  },
+  methods: {
+    edit() {
+      console.log("song edited");
     },
   },
 };
