@@ -16,7 +16,13 @@
           </div>
           <div class="p-6">
             <!-- Composition Items -->
-            <composition-item v-for="song in songs" :key="song.docID" :song="song"/>
+            <composition-item
+              v-for="(song, i) in songs"
+              :key="song.docID"
+              :song="song"
+              :updateSong="updateSong"
+              :index="i"
+            />
           </div>
         </div>
       </div>
@@ -26,43 +32,51 @@
 
 <script>
 //import store from '../store';
-import Upload from '../components/Upload.vue'
-import CompositionItem from '../components/CompositionItem.vue' 
-import {songsCollection, auth} from '../plugins/firebase'
+import Upload from "../components/Upload.vue";
+import CompositionItem from "../components/CompositionItem.vue";
+import { songsCollection, auth } from "../plugins/firebase";
 
 export default {
-  name: 'manage',
+  name: "manage",
   components: {
     Upload,
-    CompositionItem
+    CompositionItem,
   },
   data() {
     return {
-      songs: []
-    }
+      songs: [],
+    };
   },
   async created() {
-    const snapshot = await songsCollection.where('uid', '==', auth.currentUser.uid).get();
+    const snapshot = await songsCollection
+      .where("uid", "==", auth.currentUser.uid)
+      .get();
 
     snapshot.forEach((document) => {
       const song = {
         ...document.data(),
-        docID: document.id
+        docID: document.id,
       };
 
       this.songs.push(song);
-    })
+    });
   },
-/*   beforeRouteLeave (to, from, next) {
+  methods: {
+    updateSong(i, values) {
+      this.songs[i].modified_name = values.modified_name;
+      this.songs[i].genre = values.genre;
+    },
+  },
+  /*   beforeRouteLeave (to, from, next) {
     this.$refs.upload.cancelUploads();
     next();
   } */
-/*   beforeRouteEnter (to, from, next) {
+  /*   beforeRouteEnter (to, from, next) {
     if (store.state.userLoggedIn) {
       next();
     } else {
       next({name: 'home'});
     }
   }*/
-}
+};
 </script>
