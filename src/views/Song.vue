@@ -81,7 +81,8 @@
             </button>
           </vee-form>
           <!-- Sort Comments -->
-          <select v-model="sort"
+          <select
+            v-model="sort"
             class="
               block
               mt-4
@@ -158,6 +159,11 @@ export default {
       this.$router.push({ name: "home" });
       return;
     }
+
+    const { sort } = this.$route.query;
+
+    this.sort = sort === "1" || sort === "2" ? sort : "1";
+
     this.song = docSnapshot.data();
     this.getComments();
   },
@@ -198,6 +204,18 @@ export default {
           ...doc.data(),
         }),
       ]);
+    },
+  },
+  watch: {
+    sort(newVal) {
+      if (newVal === this.$route.query.sort) {
+        return;
+      }
+      this.$router.push({
+        query: {
+          sort: newVal,
+        },
+      });
     },
   },
 };
