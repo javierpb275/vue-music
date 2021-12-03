@@ -32,7 +32,7 @@
       </div>
     </section>
     <!-- Form -->
-    <section class="container mx-auto mt-6">
+    <section class="container mx-auto mt-6" id="comments">
       <div
         class="bg-white rounded border border-gray-200 relative flex flex-col"
       >
@@ -169,7 +169,7 @@ export default {
     this.getComments();
   },
   methods: {
-    ...mapActions(['newSong']),
+    ...mapActions(["newSong"]),
     async addComment(values, { resetForm }) {
       this.comment_in_submission = true;
       this.comment_show_alert = true;
