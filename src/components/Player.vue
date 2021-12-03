@@ -71,6 +71,7 @@
             relative
             cursor-pointer
           "
+          @click.prevent="updateSeek"
         >
           <span
             class="absolute top-neg-8 text-gray-800 text-lg"
@@ -122,7 +123,7 @@ export default {
     ...mapState(["seek", "duration", "playerProgress", "currentSong"]),
   },
   methods: {
-    ...mapActions(["toggleAudio"]),
+    ...mapActions(["toggleAudio", "updateSeek"]),
   },
 };
 </script>
