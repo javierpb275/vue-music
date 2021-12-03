@@ -52,9 +52,12 @@
             mx-auto
             player-song-info
           "
+          v-if="currentSong.modified_name"
         >
-          <span class="song-title">Song Title</span> by
-          <span class="song-artist">Artist</span>
+          <span class="song-title">{{ currentSong.modified_name }}</span>
+          <span class="song-artist">
+            (Uploaded by {{ currentSong.display_name }})</span
+          >
         </div>
         <span
           class="
@@ -71,7 +74,7 @@
         >
           <span
             class="absolute top-neg-8 text-gray-800 text-lg"
-            style="left: 50%"
+            :style="{ left: playerProgress }"
           >
             <i class="fas fa-circle"></i>
           </span>
@@ -84,7 +87,7 @@
               from-green-500
               to-green-400
             "
-            style="width: 50%"
+            :style="{ width: playerProgress }"
           ></span>
         </span>
       </div>
@@ -116,7 +119,7 @@ export default {
   name: "Player",
   computed: {
     ...mapGetters(["playing"]),
-    ...mapState(["seek", "duration"]),
+    ...mapState(["seek", "duration", "playerProgress", "currentSong"]),
   },
   methods: {
     ...mapActions(["toggleAudio"]),
