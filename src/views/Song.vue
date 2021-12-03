@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main>
     <!-- Music Header -->
     <section class="w-full mb-8 py-14 text-center text-white relative">
       <div
@@ -119,7 +119,7 @@
         <p>{{ comment.content }}</p>
       </li>
     </ul>
-  </div>
+  </main>
 </template>
 
 <script>
