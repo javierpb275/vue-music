@@ -26,6 +26,12 @@ export default createStore({
   },
   getters: {
     // authModalShow: (state) => state.authModalShow,
+    playing: (state) => {
+      if (state.sound.playing) {
+        return state.sound.playing();
+      }
+      return false;
+    },
   },
   actions: {
     async register({ commit }, payload) {
@@ -59,7 +65,7 @@ export default createStore({
         commit("toggleAuth");
       }
     },
-    async signout({ commit }, /* payload */) {
+    async signout({ commit } /* payload */) {
       await auth.signOut();
 
       commit("toggleAuth");
@@ -71,6 +77,16 @@ export default createStore({
     async newSong({ commit, state }, payload) {
       commit("newSong", payload);
       state.sound.play();
+    },
+    async toggleAudio({ state }) {
+      if (!state.sound.playing) {
+        return;
+      }
+      if (state.sound.playing()) {
+        state.sound.pause();
+      } else {
+        state.sound.play();
+      }
     },
   },
 });
